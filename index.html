@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <title>Gurító kocka</title>
+    <link rel="icon" href="dice.png" type="image/png">
+</head>
+<body>
+    <div class="container d-flex justify-content-center text-center my-5 flex-column">
+        <button onclick="katt()" type="button" id="dobas" class="btn btn-danger mb-3">Dobás!</button>
+        <button onclick="Reset()" type="button" id="ujJatek" class="btn btn-dark mb-3 d-none">Új játék :D</button>
+        <p id="p0"></p>
+        <p id="p1"></p>
+        <p id="p2"></p>
+        <span>
+            <p></p>
+            <ul class="list-group"></ul>
+        </span>
+        
+    </div>
+
+    <script>
+        let dobas = 0;
+        let dobasok = [];
+        function katt(){
+            let ertek = Math.floor((Math.random()*6)+1)
+            document.getElementById('p1').innerHTML = `A dobás értéke: ${ertek}`
+            dobas++
+            dobasok.push(ertek)
+            document.getElementById('p2').innerHTML = `Ez a/az ${dobas}. dobás.`
+            console.log(dobasok)
+        
+            if(dobas >= 5){
+                document.getElementById("dobas").disabled = true;
+                let dobasok2 =""
+                for(let elem of dobasok){
+                    dobasok2+=`<li class="list-group-item">${elem}</li>`
+                }
+                document.querySelector('span>p').innerHTML="Az eddigi dobások értéke"
+                document.querySelector('ul').innerHTML=dobasok2
+                document.getElementById("ujJatek").classList.add("d-block");
+                
+            }
+            switch(ertek){
+                case 1:
+                document.getElementById('p0').innerHTML = `<img class="img-fluid h-30" style="max-height: 300px" src="img/dice-1.svg">`;
+                break;
+                case 2:
+                document.getElementById('p0').innerHTML = `<img class="img-fluid h-30" style="max-height: 300px" src="img/dice-2.svg">`;
+                break;
+                case 3:
+                document.getElementById('p0').innerHTML = `<img class="img-fluid h-30" style="max-height: 300px" src="img/dice-3.svg">`;
+                break;
+                case 4:
+                document.getElementById('p0').innerHTML = `<img class="img-fluid h-30" style="max-height: 300px" src="img/dice-4.svg">`;
+                break;
+                case 5:
+                document.getElementById('p0').innerHTML = `<img class="img-fluid h-30" style="max-height: 300px" src="img/dice-5.svg">`;
+                break;
+                case 6:
+                document.getElementById('p0').innerHTML = `<img class="img-fluid h-30" style="max-height: 300px" src="img/dice-6.svg">`;
+                break;    
+            }
+              
+        }
+        function Reset(){
+                document.querySelector('ul').innerHTML="";
+                document.querySelector('span p').innerHTML="";
+                document.getElementById('p0').innerHTML="";
+                document.getElementById('p1').innerHTML="";
+                document.getElementById('p2').innerHTML="";
+                document.getElementById("ujJatek").classList.remove("d-block");
+                document.getElementById("dobas").disabled = false;
+                dobas = 0;
+                dobasok = []
+            } 
+    </script>
+</body>
+</html>
